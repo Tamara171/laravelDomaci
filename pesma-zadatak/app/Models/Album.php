@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     use HasFactory;
+
+    public function pesmas()
+    {
+       return $this->hasMany(Pesma::class);
+    }
 }

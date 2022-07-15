@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PesmaController;
+use App\Models\Pesma;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/pesmas', [PesmaController::class, 'index']);
+Route::get('/pesmas/{id}', [PesmaController::class, 'show']);

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\IzvodjacController;
+use App\Http\Controllers\PesmaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +20,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+//Route::get('/pesmas', [PesmaController::class, 'index']);
+//Route::get('/pesmas/{id}', [PesmaController::class, 'show']);
+
+//Route::get('/izvodjacs', [IzvodjacController::class, 'index']);
+//Route::get('/izvodjacs/{id}', [IzvodjacController::class, 'show']);
+
+
+Route::resource('pesmas', PesmaController::class);
+Route::resource('izvodjacs', IzvodjacController::class);
+Route::resource('albums', AlbumController::class);
+
+Route::get('/albums', [AlbumController::class, 'index']);
+Route::get('/albums/{id}', [AlbumController::class, 'show']);

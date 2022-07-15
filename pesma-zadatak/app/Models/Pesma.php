@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Pesma extends Model
 {
     use HasFactory;
+
+    public function album()
+    {
+        
+        return $this->belongsTo(Album::class);
+       
+
+    }
+
+    public function izvodjac()
+    {
+        
+        return $this->belongsTo(Izvodjac::class);
+       
+
+    }
 }
