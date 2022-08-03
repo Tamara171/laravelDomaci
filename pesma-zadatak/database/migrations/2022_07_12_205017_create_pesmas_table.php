@@ -21,6 +21,7 @@ class CreatePesmasTable extends Migration
             $table->string('award');
             $table->timestamps();
             $table->foreignId('izvodjac_id');
+            $table->foreignId('user_id');
             $table->foreignId('album_id');
 
 

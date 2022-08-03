@@ -4,6 +4,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AlbumPesmaController;
 use App\Http\Controllers\IzvodjacController;
 use App\Http\Controllers\PesmaController;
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,8 +40,7 @@ Route::resource('izvodjacs', IzvodjacController::class);
 Route::resource('albums', AlbumController::class);
 
 
-
-
-
 Route::resource('albums.pesmas', AlbumPesmaController::class)->only(['index']);
 //Route::get('/albums/{id}/pesmas', [AlbumPesmaController::class, 'index'])->name('albums.pesmas.index');
+
+Route::post('/register', [AuthController::class, 'register']);
