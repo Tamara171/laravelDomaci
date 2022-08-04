@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class AuthController extends Controller
 {
    
@@ -26,7 +27,7 @@ class AuthController extends Controller
             return response()->json($validator->errors());
 
         $user = User::create([
-            'username' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -37,7 +38,7 @@ class AuthController extends Controller
     }
 
 
-/*
+
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -50,7 +51,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['message' => 'Hi ' . $user->name . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer',]);
+            ->json(['message' => 'Hi ' . $user->username . ', welcome to home', 'access_token' => $token, 'token_type' => 'Bearer',]);
     }
 
 
@@ -63,5 +64,5 @@ class AuthController extends Controller
     }
 
        
-    */
+    
 }

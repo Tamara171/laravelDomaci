@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PesmaCollection;
 use App\Http\Resources\PesmaResource;
 use App\Models\Pesma;
+
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 use function PHPUnit\Framework\isNull;
@@ -28,36 +32,6 @@ class PesmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pesma  $pesma
-     * @return \Illuminate\Http\Response
-     */
-   /* public function show($id)
-    {
-        $pesma=Pesma::find($id);
-        if(is_null($pesma))
-            return response()->json('Data not found', 404);
-        return response()->json($pesma);
-
-    }*/
 
 
     public function show(Pesma $pesma)
@@ -72,32 +46,75 @@ class PesmaController extends Controller
      * @param  \App\Models\Pesma  $pesma
      * @return \Illuminate\Http\Response
      */
-    public function edit()
-    {
     
 
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            
+            'name' => 'required|string|max:130',
+            'duration' => 'required',
+            'year'=> 'required',
+            'award' => 'required',
+           'izvodjac_id' => 'required',
+            //'user_id' => 'required',
+            'album_id' => 'required'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $pesma = Pesma::create([
+             
+            'name' => request()->name,
+            'duration' => request()->duration,
+            'award' => request()->award,
+            'izvodjac_id' => request()->izvodjac_id,
+            'user_id' => Auth::user()->id,
+            'album_id' => request()->album_id,
+            
+        ]);
+
+        return response()->json(['Pesma is created successfully.', new PesmaResource($pesma)]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pesma  $pesma
-     * @return \Illuminate\Http\Response
-     */
+   
+
+
+
     public function update(Request $request, Pesma $pesma)
     {
-        //
+        $validator = Validator::make($request->all(), [
+       
+            'name' => 'required|string|max:130',
+            'duration' => 'required',
+            'award' => 'required',
+            'izvodjac_id' => 'required',
+       
+            'album_id' => 'required'
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+          
+
+        $pesma->save();
+
+        return response()->json(['Pesma is updated successfully.', new PesmaResource($pesma)]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pesma  $pesma
+    
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pesma $pesma)
     {
-        //
+        $pesma->delete();
+
+        return response()->json('Pesma is deleted successfully.');
+
     }
 }

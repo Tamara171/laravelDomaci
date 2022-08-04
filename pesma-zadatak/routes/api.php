@@ -35,7 +35,7 @@ Route::get('/izvodjacs/{id}', [IzvodjacController::class, 'show']);
 Route::get('/albums', [AlbumController::class, 'index']);
 Route::get('/albums/{id}', [AlbumController::class, 'show']);
 
-Route::resource('pesmas', PesmaController::class);
+//Route::resource('pesmas', PesmaController::class);
 Route::resource('izvodjacs', IzvodjacController::class);
 Route::resource('albums', AlbumController::class);
 
@@ -43,4 +43,17 @@ Route::resource('albums', AlbumController::class);
 Route::resource('albums.pesmas', AlbumPesmaController::class)->only(['index']);
 //Route::get('/albums/{id}/pesmas', [AlbumPesmaController::class, 'index'])->name('albums.pesmas.index');
 
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register']); //radi
+
+Route::post('/login', [AuthController::class, 'login']); //radi
+
+Route::group(['middleware' => ['auth:sanctum']], function () { //ne radi
+    Route::get('/profile', function(Request $request) {
+        return auth()->user();
+    });
+    Route::resource('pesmas', PesmaController::class)->only(['update','store','destroy']);
+
+    
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+Route::resource('pesmas', PesmaController::class)->only(['index']);
