@@ -9,26 +9,21 @@ class Pesma extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'duration', 'award', 'izvodjac_id', 'album_id', 'user_id'];
     public function album()
     {
-        
-        return $this->belongsTo(Album::class);
-       
 
+        return $this->belongsTo(Album::class);
     }
 
     public function izvodjac()
     {
-        
-        return $this->belongsTo(Izvodjac::class);
-       
 
+        return $this->belongsTo(Izvodjac::class);
     }
     public function user()
     {
-        
-        return $this->belongsTo(User::class);
-       
 
+        return $this->belongsTo(User::class);
     }
 }

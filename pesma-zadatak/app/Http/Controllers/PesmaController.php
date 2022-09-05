@@ -37,8 +37,7 @@ class PesmaController extends Controller
     public function show(Pesma $pesma)
     {
         return new PesmaResource($pesma);
-
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -46,58 +45,64 @@ class PesmaController extends Controller
      * @param  \App\Models\Pesma  $pesma
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            
+
             'name' => 'required|string|max:130',
             'duration' => 'required',
-            'year'=> 'required',
             'award' => 'required',
-           'izvodjac_id' => 'required',
-            //'user_id' => 'required',
+            'izvodjac_id' => 'required',
             'album_id' => 'required'
         ]);
 
-        if ($validator->fails())
+        if ($validator->fails()) {
             return response()->json($validator->errors());
+        }
+
+
 
         $pesma = Pesma::create([
-             
+
             'name' => request()->name,
             'duration' => request()->duration,
             'award' => request()->award,
             'izvodjac_id' => request()->izvodjac_id,
             'user_id' => Auth::user()->id,
             'album_id' => request()->album_id,
-            
+
         ]);
 
         return response()->json(['Pesma is created successfully.', new PesmaResource($pesma)]);
     }
 
-   
+
 
 
 
     public function update(Request $request, Pesma $pesma)
     {
         $validator = Validator::make($request->all(), [
-       
+
             'name' => 'required|string|max:130',
             'duration' => 'required',
             'award' => 'required',
             'izvodjac_id' => 'required',
-       
+
             'album_id' => 'required'
         ]);
 
-        if ($validator->fails())
+        if ($validator->fails()) {
             return response()->json($validator->errors());
+        }
 
-          
+
+        $pesma->name = $request->name;
+        $pesma->duration = $request->duration;
+        $pesma->award = $request->award;
+        $pesma->izvodjac_id = $request->album_id;
 
         $pesma->save();
 
@@ -115,6 +120,5 @@ class PesmaController extends Controller
         $pesma->delete();
 
         return response()->json('Pesma is deleted successfully.');
-
     }
 }

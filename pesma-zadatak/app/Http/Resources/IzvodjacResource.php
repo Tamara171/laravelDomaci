@@ -17,10 +17,10 @@ class IzvodjacResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'name'=> $this->resource->name,
-            'sex'=> $this->resource->sex,
-            'age'=> $this->resource->age,
-           
+            'name' => $this->resource->name,
+            'sex' => $this->resource->sex,
+            'age' => $this->resource->age,
+
         ];
     }
 }

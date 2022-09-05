@@ -24,7 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
 Route::get('/pesmas', [PesmaController::class, 'index']);
 Route::get('/pesmas/{id}', [PesmaController::class, 'show']);
 
@@ -47,13 +46,13 @@ Route::post('/register', [AuthController::class, 'register']); //radi
 
 Route::post('/login', [AuthController::class, 'login']); //radi
 
-Route::group(['middleware' => ['auth:sanctum']], function () { //ne radi
-    Route::get('/profile', function(Request $request) {
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function (Request $request) {
         return auth()->user();
     });
-    Route::resource('pesmas', PesmaController::class)->only(['update','store','destroy']);
+    Route::resource('pesmas', PesmaController::class)->only(['update', 'store', 'destroy']);
 
-    
+
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 Route::resource('pesmas', PesmaController::class)->only(['index']);

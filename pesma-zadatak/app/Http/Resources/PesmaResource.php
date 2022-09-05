@@ -17,12 +17,12 @@ class PesmaResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'name'=> $this->resource->name,
-            'duration'=> $this->resource->duration,
-            'award'=> $this->resource->award,
-            'izvodjac'=> new IzvodjacResource($this->resource->izvodjac),
-           'album'=> new AlbumResource($this->resource->album)
-            
+            'name' => $this->resource->name,
+            'duration' => $this->resource->duration,
+            'award' => $this->resource->award,
+            'izvodjac' => new IzvodjacResource($this->resource->izvodjac),
+            'album' => new AlbumResource($this->resource->album)
+
         ];
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-   
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -62,7 +62,4 @@ class AuthController extends Controller
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
     }
-
-       
-    
 }

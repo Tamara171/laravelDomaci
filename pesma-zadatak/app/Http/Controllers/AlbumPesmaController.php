@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AlbumPesmaController extends Controller
 {
-  
+
     public function index($album_id)
     {
         $pesmas = Pesma::get()->where('album_id', $album_id);

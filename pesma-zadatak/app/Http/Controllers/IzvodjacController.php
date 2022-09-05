@@ -50,7 +50,7 @@ class IzvodjacController extends Controller
      */
     public function show(Izvodjac $izvodjac)
     {
-        return new IzvodjacResource($izvodjac) ;
+        return new IzvodjacResource($izvodjac);
     }
 
     /**
